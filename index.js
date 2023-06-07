@@ -1,30 +1,31 @@
 let postButton = document.querySelector('.btn');
 postButton.onclick =function(e){
-      let massage1 ={
-            mass: document.querySelector('.title').value
-            mas: document.querySelector('.massage').value
-
-      }
-      console.log(massage1)
-}
-fetch('https://jsonplaceholder.typicode.com/posts', {
+      let user ={
+            title: document.querySelector('#title').value,
+            body: document.querySelector('#massage').value
+        }
+        console.log(user);
+      
+        let massagesList = document.querySelector('.container');
+  fetch('https://jsonplaceholder.typicode.com/posts', {
     method: 'POST',
-    body: JSON.stringify({
-      title: 'foo',
-      body: 'bar',
-      userId: 1
-    }),
+    body: JSON.stringify(user),
     headers: {
       "Content-type": "application/json; charset=UTF-8"
     }
   })
+  
   .then(response => response.json())
-  .then(json => console.log(json))
+  .then(json => {
+    json.forEach((elem) => {
+          let div = document.createElement('div');
+          div.classList.add('massage');
+          div.innerHTML =`<p>Заголовок:</p>
+          <p>${elem.title}</p><p>Сообщение:</p>
+          <p>${elem.body}</p>
+          `;
+          massagesList.append(div);
 
-// то такой запрос вернёт
-{
-  id: 101,
-  title: 'foo',
-  body: 'bar',
-  userId: 1
-}
+    }) 
+  
+})}
