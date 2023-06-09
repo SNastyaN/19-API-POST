@@ -16,15 +16,12 @@ postButton.onclick =function(e){
     }
   })  
     .then(response => response.json())
-    .then(user.forEach(element => {
+    .then((data)=> {
       let div = document.createElement('div');
       div.classList.add('massage');
-      div.innerHTML =`<p>${element.title}</p>
-      <p>${element.body}</p>
+      div.innerHTML =`<p>${data.title}</p>
+      <p>${data.body}</p>
       `;
-      massagesList.append(div);
-
-
-      
-    }))
+      massagesList.append(div);})
+      .catch((error)=> console.error("Произошла ошибка:", error));
 }
